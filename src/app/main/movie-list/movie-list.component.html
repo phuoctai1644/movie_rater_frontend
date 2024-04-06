@@ -1,4 +1,3 @@
-<p>movie-list works!</p>
 <ng-container *ngFor="let movie of movies">
-  <div>{{movie.title}}</div>
+  <div (click)="onSelectMovie(movie)">{{movie.title}}</div>
 </ng-container>

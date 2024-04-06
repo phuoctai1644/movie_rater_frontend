@@ -1,4 +1,4 @@
 <div class="main-wrapper">
-  <app-movie-list></app-movie-list>
-  <app-movie-details></app-movie-details>
+  <app-movie-list [movies]="movies" (selectMovie)="onSelectMovie($event)"></app-movie-list>
+  <app-movie-details [movie]="selectedMovie"></app-movie-details>
 </div>

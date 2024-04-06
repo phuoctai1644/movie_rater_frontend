@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { MovieService } from '../_services/movie.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Movie } from '../_models';
 
 @Component({
@@ -7,23 +6,11 @@ import { Movie } from '../_models';
   templateUrl: './movie-list.component.html',
   styleUrls: ['./movie-list.component.scss']
 })
-export class MovieListComponent implements OnInit {
-  movies: Movie[] = [];
+export class MovieListComponent {
+  @Input() movies: Movie[] = [];
+  @Output() selectMovie = new EventEmitter<Movie>();
 
-  constructor(private movieService: MovieService) { }
-
-  ngOnInit() {
-    this.getMovies();
-  }
-
-  getMovies() {
-    this.movieService.getAll().subscribe({
-      next: (response) => {
-        this.movies = response;
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    })
+  onSelectMovie(movie: Movie) {
+    this.selectMovie.emit(movie);
   }
 }
