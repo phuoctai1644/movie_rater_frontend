@@ -1,4 +1,23 @@
-<div class="movie-details-wrapper">
-  <h2>{{movie?.title}}</h2>
-  <p>{{movie?.description}}</p>
+<div class="movie-details-wrapper" *ngIf="movie">
+  <h2>{{movie.title}}</h2>
+  <p>{{movie.description}}</p>
+
+  <div class="rating">
+    <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+      <fa-icon [icon]="faStar" [ngClass]="{'active': movie.avg_rating >= star}"></fa-icon>
+    </ng-container>
+    <span>&nbsp;({{movie.total_rating}})</span>
+  </div>
+
+  <div class="rate-container mt-2">
+    <h2 class="text-2xl">Rate it!!!!</h2>
+    <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+      <fa-icon [icon]="faStar"
+        [ngClass]="{'active': starHovered >= star}"
+        (mouseenter)="onStarHovered(star)"
+        (mouseleave)="starHovered = 0"
+        (click)="onRating(star)">
+      </fa-icon>
+    </ng-container>
+  </div>
 </div>
