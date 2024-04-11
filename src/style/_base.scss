@@ -1,0 +1,5 @@
+.form-group {
+  & ~ .form-group {
+    margin-top: 15px;
+  }
+}
