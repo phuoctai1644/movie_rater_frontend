@@ -6,10 +6,18 @@ import { SignInComponent } from './_components/sign-in/sign-in.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SignUpComponent } from './_components/sign-up/sign-up.component';
 
 const routes: Routes = [
-  { path: 'auth', redirectTo: 'auth/sign-in' },
-  { path: 'auth/sign-in', component: SignInComponent }
+  {
+    path: '',
+    component: AuthComponent,
+    children: [
+      { path: 'sign-in', component: SignInComponent },
+      { path: 'sign-up', component: SignUpComponent },
+      { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
+    ],
+  }
 ]
 
 const PRIMENG_MODULES = [
@@ -20,7 +28,8 @@ const PRIMENG_MODULES = [
 @NgModule({
   declarations: [
     AuthComponent,
-    SignInComponent
+    SignInComponent,
+    SignUpComponent
   ],
   imports: [
     CommonModule,

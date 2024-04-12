@@ -12,7 +12,11 @@ import { ToastModule } from 'primeng/toast';
 import { CookieService } from 'ngx-cookie-service';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'movies' }
+  { path: '', pathMatch: 'full', redirectTo: 'movies' },
+  { 
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+  }
 ]
 
 const PRIMENG_MODULES = [
