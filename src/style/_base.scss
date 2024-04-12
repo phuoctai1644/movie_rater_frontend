@@ -1,5 +1,10 @@
+@import './color';
+
 .form-group {
   & ~ .form-group {
     margin-top: 15px;
+  }
+  input.ng-invalid.ng-touched {
+    border-color: var(--x-error);
   }
 }

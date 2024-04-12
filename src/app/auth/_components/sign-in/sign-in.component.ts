@@ -16,4 +16,14 @@ export class SignInComponent implements OnInit {
       password: [, [Validators.required]]
     })
   }
+
+  onSubmit() {
+    this.form.updateValueAndValidity();
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    // Handle submit
+  }
 }
