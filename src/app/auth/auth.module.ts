@@ -12,6 +12,11 @@ const routes: Routes = [
   { path: 'auth/sign-in', component: SignInComponent }
 ]
 
+const PRIMENG_MODULES = [
+  InputTextModule,
+  ButtonModule,
+]
+
 @NgModule({
   declarations: [
     AuthComponent,
@@ -20,9 +25,8 @@ const routes: Routes = [
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    InputTextModule,
-    ButtonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    ...PRIMENG_MODULES
   ],
   exports: [
     RouterModule
