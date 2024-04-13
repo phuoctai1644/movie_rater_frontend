@@ -1,5 +1,9 @@
 @import './color';
 
+button ~ button {
+  margin-left: 12px;
+}
+
 .form-group {
   & ~ .form-group {
     margin-top: 15px;
@@ -7,4 +11,8 @@
   input.ng-invalid.ng-touched {
     border-color: var(--x-error);
   }
+}
+
+.search-input {
+  border-radius: 30px!important;
 }

@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { SigInResponse, SignInPayload } from "../_models";
 import { SignUpPayload, User } from "../_models/sign-up.models";
 import { CookieService } from "ngx-cookie-service";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private router: Router
   ) { }
 
   signIn(payload: SignInPayload) {
@@ -25,6 +27,7 @@ export class AuthService {
 
   signOut() {
     this.cookieService.delete('accessToken');
+    this.router.navigate(['/auth/sign-in']);
   }
 
   isAuthenticated() {

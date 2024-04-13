@@ -7,6 +7,9 @@ import { MovieDetailsComponent } from './movie-details/movie-details.component';
 import { MovieFormComponent } from './movie-form/movie-form.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { mainGuard } from '../core/_guards/main.guard';
+import { FormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
 
 const routes: Routes = [
   {
@@ -17,7 +20,6 @@ const routes: Routes = [
       { path: 'movies', component: MovieListComponent },
       { path: '', pathMatch: 'full', redirectTo: 'movies' }
     ]
-
   }
 ]
 
@@ -28,6 +30,11 @@ const COMPONENTS = [
   MovieFormComponent
 ]
 
+const PIRMENG_MODULES = [
+  InputTextModule,
+  ButtonModule
+]
+
 @NgModule({
   declarations: [
     ...COMPONENTS
@@ -35,7 +42,9 @@ const COMPONENTS = [
   imports: [
     CommonModule,
     FontAwesomeModule,
-    RouterModule.forChild(routes)
+    FormsModule,
+    RouterModule.forChild(routes),
+    ...PIRMENG_MODULES,
   ],
   exports: [
     RouterModule
