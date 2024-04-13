@@ -2,18 +2,40 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthComponent } from './auth.component';
 import { RouterModule, Routes } from '@angular/router';
+import { SignInComponent } from './_components/sign-in/sign-in.component';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SignUpComponent } from './_components/sign-up/sign-up.component';
 
 const routes: Routes = [
-  { path: 'auth', component: AuthComponent }
+  {
+    path: '',
+    component: AuthComponent,
+    children: [
+      { path: 'sign-in', component: SignInComponent },
+      { path: 'sign-up', component: SignUpComponent },
+      { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
+    ],
+  }
+]
+
+const PRIMENG_MODULES = [
+  InputTextModule,
+  ButtonModule,
 ]
 
 @NgModule({
   declarations: [
     AuthComponent,
+    SignInComponent,
+    SignUpComponent
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    ReactiveFormsModule,
+    RouterModule.forChild(routes),
+    ...PRIMENG_MODULES
   ],
   exports: [
     RouterModule
