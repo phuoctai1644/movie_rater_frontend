@@ -2,7 +2,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -44,7 +43,6 @@ const PIRMENG_MODULES = [
   ],
   imports: [
     CommonModule,
-    FontAwesomeModule,
     FormsModule,
     RouterModule.forChild(routes),
     ...PIRMENG_MODULES,
