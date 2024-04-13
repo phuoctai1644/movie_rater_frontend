@@ -1,15 +1,19 @@
+/** Modules */
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MainComponent } from './main.component';
 import { RouterModule, Routes } from '@angular/router';
-import { MovieListComponent } from './movie-list/movie-list.component';
-import { MovieDetailsComponent } from './movie-details/movie-details.component';
-import { MovieFormComponent } from './movie-form/movie-form.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { mainGuard } from '../core/_guards/main.guard';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
+
+/** Components */
+import { MainComponent } from './main.component';
+import { MovieItemComponent } from './_components/movie-item/movie-item.component';
+import { MovieListComponent } from './_components/movie-list/movie-list.component';
+
+/** Others */
+import { mainGuard } from '../core/_guards/main.guard';
 
 const routes: Routes = [
   {
@@ -25,9 +29,8 @@ const routes: Routes = [
 
 const COMPONENTS = [
   MainComponent,
-  MovieListComponent,
-  MovieDetailsComponent,
-  MovieFormComponent
+  MovieItemComponent,
+  MovieListComponent
 ]
 
 const PIRMENG_MODULES = [
@@ -37,7 +40,7 @@ const PIRMENG_MODULES = [
 
 @NgModule({
   declarations: [
-    ...COMPONENTS
+    ...COMPONENTS,
   ],
   imports: [
     CommonModule,
