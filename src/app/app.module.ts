@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
@@ -10,6 +10,8 @@ import { CoreModule } from './core/core.module';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { CookieService } from 'ngx-cookie-service';
+
+export let AppInjector: Injector;
 
 const routes: Routes = [
   { 
@@ -43,4 +45,8 @@ const PRIMENG_MODULES = [
   providers: [MessageService, CookieService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private injector: Injector) {
+    AppInjector = this.injector;
+  }
+}

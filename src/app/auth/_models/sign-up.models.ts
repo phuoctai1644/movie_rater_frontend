@@ -4,7 +4,7 @@ export interface SignUpPayload extends SignInPayload {
   email: string;
 }
 
-export interface SignUpResponse {
+export interface User {
   id: number;
   username: string;
   first_name: string;

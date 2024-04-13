@@ -37,7 +37,7 @@ export class SignInComponent implements OnInit {
     const rawValue = this.form.getRawValue();
     this.authService.signIn(rawValue).subscribe({
       next: response => {
-        this.cookieService.set(`${rawValue.username}-accessToken`, response.token);
+        this.authService.setAccessToken(response.token);
         this.router.navigate(['']);
       }, 
       error: error => {
