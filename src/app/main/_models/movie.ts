@@ -12,6 +12,9 @@ export interface Movie {
   description: string;
   total_rating: number;
   avg_rating: number;
+  thumbnail: string;
+  type: string;
+  trailerUrl?: string;
 }
 
 export interface Rating {

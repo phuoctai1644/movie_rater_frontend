@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
+import { TooltipModule } from 'primeng/tooltip';
 
 /** Components */
 import { MainComponent } from './main.component';
@@ -34,7 +35,8 @@ const COMPONENTS = [
 
 const PIRMENG_MODULES = [
   InputTextModule,
-  ButtonModule
+  ButtonModule,
+  TooltipModule
 ]
 
 @NgModule({

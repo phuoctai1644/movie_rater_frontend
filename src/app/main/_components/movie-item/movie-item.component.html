@@ -1,1 +1,12 @@
-<p>movie-item works!</p>
+<div class="movie-item-wrapper">
+  <div class="thumbnail" [ngStyle]="{ 'background-image': 'url(' + movie.thumbnail + ')' }"></div>
+  <div class="info mt-2">
+    <div class="title font-medium text-ellipsis">{{movie.title}}</div>
+    <div class="year">2022</div>
+    <!-- <div class="year">{{movie?.year}}</div> -->
+  </div>
+  <div class="rating-star flex items-center">
+    <i class="pi pi-star-fill star-icon"></i>
+    <span class="text-white ml-1">{{movie.avg_rating}}</span>
+  </div>
+</div>
