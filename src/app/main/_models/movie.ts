@@ -10,6 +10,7 @@ export interface Movie {
   id: number;
   title: string;
   description: string;
+  year: number;
   total_rating: number;
   avg_rating: number;
   thumbnail: string;

@@ -25,7 +25,7 @@ export class MovieListComponent implements OnInit {
     this.movieService.getAll().subscribe({
       next: response => {
         this.movies = response;
-        this.topMovies = [...response].sort((a, b) => b.avg_rating - a.avg_rating).slice(0, 20);
+        this.topMovies = [...response].sort((a, b) => b.avg_rating - a.avg_rating).slice(0, 5);
       },
       error: error => {
         this.toastService.error(error.message);

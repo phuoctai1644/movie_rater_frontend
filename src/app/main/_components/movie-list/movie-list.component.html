@@ -1,16 +1,16 @@
 <div class="movie-list-wrapper">
   <div class="top-rating-section mt-[30px]">
     <p class="text-xl font-medium">Top Rating Movie</p>
-    <div class="flex gap-[20px] mt-2">
-      <ng-container *ngFor="let movie of movies">
+    <div class="flex gap-[20px] mt-2 mw-full overflow-x-auto">
+      <ng-container *ngFor="let movie of topMovies">
         <app-movie-item [movie]="movie"></app-movie-item>
       </ng-container>
     </div>
   </div>
   <div class="all-section mt-[30px]">
     <p class="text-xl font-medium">All Movie</p>
-    <div class="flex gap-[20px] mt-2">
-      <ng-container *ngFor="let movie of topMovies">
+    <div class="flex gap-[20px] mt-2 mw-full overflow-x-auto">
+      <ng-container *ngFor="let movie of movies">
         <app-movie-item [movie]="movie"></app-movie-item>
       </ng-container>
     </div>
