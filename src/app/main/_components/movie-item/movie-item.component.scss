@@ -1,0 +1,30 @@
+.movie-item-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  cursor: pointer;
+  position: relative;
+
+  .thumbnail {
+    width: 100%;
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+  }
+
+  .info {
+    .title:hover { color: var(--x-primary); }
+    .year { color: var(--x-grey); }
+  }
+
+  .rating-star {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+
+    .star-icon {
+      color: var(--x-star);
+    }
+  }
+}

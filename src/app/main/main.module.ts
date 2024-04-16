@@ -1,11 +1,18 @@
+/** Modules */
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MainComponent } from './main.component';
 import { RouterModule, Routes } from '@angular/router';
-import { MovieListComponent } from './movie-list/movie-list.component';
-import { MovieDetailsComponent } from './movie-details/movie-details.component';
-import { MovieFormComponent } from './movie-form/movie-form.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { TooltipModule } from 'primeng/tooltip';
+
+/** Components */
+import { MainComponent } from './main.component';
+import { MovieItemComponent } from './_components/movie-item/movie-item.component';
+import { MovieListComponent } from './_components/movie-list/movie-list.component';
+
+/** Others */
 import { mainGuard } from '../core/_guards/main.guard';
 
 const routes: Routes = [
@@ -17,25 +24,30 @@ const routes: Routes = [
       { path: 'movies', component: MovieListComponent },
       { path: '', pathMatch: 'full', redirectTo: 'movies' }
     ]
-
   }
 ]
 
 const COMPONENTS = [
   MainComponent,
-  MovieListComponent,
-  MovieDetailsComponent,
-  MovieFormComponent
+  MovieItemComponent,
+  MovieListComponent
+]
+
+const PIRMENG_MODULES = [
+  InputTextModule,
+  ButtonModule,
+  TooltipModule
 ]
 
 @NgModule({
   declarations: [
-    ...COMPONENTS
+    ...COMPONENTS,
   ],
   imports: [
     CommonModule,
-    FontAwesomeModule,
-    RouterModule.forChild(routes)
+    FormsModule,
+    RouterModule.forChild(routes),
+    ...PIRMENG_MODULES,
   ],
   exports: [
     RouterModule
