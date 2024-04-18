@@ -1,43 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { MovieService } from './_services/movie.service';
-import { Movie } from './_models';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { AuthService } from '../auth/_services';
+import { MovieDataService } from './_services/movie-data.service';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit {
-  movies: Movie[] = [];
-  selectedMovie!: Movie;
+export class MainComponent {
+  @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
   keyword = '';
 
   constructor(
-    private movieService: MovieService,
-    private authService: AuthService
+    private authService: AuthService,
+    private movieDataService: MovieDataService
   ) { }
-
-  ngOnInit(): void {
-    this.getMovies();
-  }
-
-  getMovies() {
-    this.movieService.getAll().subscribe({
-      next: (response) => {
-        this.movies = response;
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    })
-  }
-
-  onSelectMovie(movie: Movie) {
-    this.selectedMovie = movie;
-  }
 
   onSignOut() {
     this.authService.signOut();
+  }
+
+  onSearch(event: KeyboardEvent) {
+    if (event.key !== 'Enter') {
+      return;
+    }
+    this.movieDataService.keyword.next(this.keyword);
+    this.searchInput.nativeElement.blur();
   }
 }
