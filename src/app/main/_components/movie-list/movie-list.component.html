@@ -1,5 +1,5 @@
 <div class="movie-list-wrapper">
-  <div class="top-rating-section mt-[30px]">
+  <div class="top-rating-section mt-[30px]" *ngIf="!keyword">
     <p class="text-xl font-medium">Top Rating Movie</p>
     <div class="flex gap-[20px] mt-2 mw-full overflow-x-auto">
       <ng-container *ngFor="let movie of topMovies">
@@ -8,11 +8,17 @@
     </div>
   </div>
   <div class="all-section mt-[30px]">
-    <p class="text-xl font-medium">All Movie</p>
+    <p class="text-xl font-medium" *ngIf="!keyword">All Movie</p>
+    <p class="text-xl font-medium" *ngIf="keyword">
+      Showing search results for: <span class="text-metal">{{keyword}}</span>
+    </p>
+
     <div class="flex gap-[20px] mt-2 mw-full overflow-x-auto">
       <ng-container *ngFor="let movie of movies">
         <app-movie-item [movie]="movie"></app-movie-item>
       </ng-container>
     </div>
+
+    <div class="empty" *ngIf="movies.length === 0">No movie</div>
   </div>
 </div>

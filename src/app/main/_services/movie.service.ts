@@ -18,8 +18,8 @@ export class MovieService {
     private cookieService: CookieService
   ) { }
 
-  getAll() {
-    return this.http.get<Movie[]>(`${environment.apiUrl}/movies/`, { headers: this.headers});
+  getAll(keyword: string = '') {
+    return this.http.get<Movie[]>(`${environment.apiUrl}/movies/?search=${keyword}`, { headers: this.headers});
   }
 
   get(movieId: number) {

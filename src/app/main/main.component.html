@@ -7,7 +7,12 @@
 
     <div class="p-input-icon-left">
       <i class="pi pi-search"></i>
-      <input type="text" pInputText placeholder="Search a movie" class="search-input m-auto w-[500px]" [(ngModel)]="keyword" />
+      <input type="text"
+        pInputText #searchInput
+        placeholder="Search a movie"
+        class="search-input m-auto w-[500px]"
+        [(ngModel)]="keyword" 
+        (keyup)="onSearch($event)"/>
     </div>
 
     <div>
