@@ -15,7 +15,7 @@ export interface Movie {
   avg_rating: number;
   thumbnail: string;
   type: string;
-  trailerUrl?: string;
+  trailer_url?: string;
 }
 
 export interface Rating {

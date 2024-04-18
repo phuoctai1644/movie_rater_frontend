@@ -1,0 +1,12 @@
+.movie-detail-wrapper {
+  .thumbnail {
+    height: 100%;
+    width: 330px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+  }
+  .star-icon {
+    color: var(--x-star);
+  }
+}

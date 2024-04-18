@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Movie } from '../../_models';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movie-item',
@@ -8,4 +9,10 @@ import { Movie } from '../../_models';
 })
 export class MovieItemComponent {
   @Input() movie!: Movie;
+
+  constructor(private router: Router) { }
+
+  onViewDetail() {
+    this.router.navigate([`/movies/${this.movie.id}`]);
+  }
 }

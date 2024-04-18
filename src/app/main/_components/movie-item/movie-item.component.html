@@ -1,6 +1,9 @@
 <div class="movie-item-wrapper">
-  <div class="thumbnail" [ngStyle]="{ 'background-image': 'url(' + movie.thumbnail + ')' }"></div>
-  <div class="info mt-2">
+  <div class="thumbnail"
+    [ngStyle]="{ 'background-image': 'url(' + movie.thumbnail + ')' }"
+    (click)="onViewDetail()">
+  </div>
+  <div class="info mt-2" (click)="onViewDetail()">
     <div class="title font-medium text-ellipsis">{{movie.title}}</div>
     <div class="year">{{movie.year}}</div>
   </div>
