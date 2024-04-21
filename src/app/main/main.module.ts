@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { ToastModule } from 'primeng/toast';
 
 /** Components */
 import { MainComponent } from './main.component';
@@ -39,7 +41,9 @@ const COMPONENTS = [
 const PIRMENG_MODULES = [
   InputTextModule,
   ButtonModule,
-  TooltipModule
+  TooltipModule,
+  ProgressBarModule,
+  ToastModule
 ]
 
 @NgModule({

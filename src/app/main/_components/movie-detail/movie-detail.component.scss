@@ -7,6 +7,13 @@
     border-radius: 10px;
   }
   .star-icon {
-    color: var(--x-star);
+    opacity: 0.5;
+    & ~ .star-icon {
+      margin-left: 4px;
+    }
+    &.active {
+      color: var(--x-star);
+      opacity: unset;
+    }
   }
 }

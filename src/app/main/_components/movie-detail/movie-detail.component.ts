@@ -28,6 +28,10 @@ export class MovieDetailComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustResourceUrl(`https://${hostName}/embed/${videoId}`);
   }
 
+  get avgRating() {
+    return Number(this.movie.avg_rating).toFixed(1);
+  }
+
   ngOnInit(): void {
     const movieId = this.route.snapshot.params['id'];
     this.getMovie(movieId);
