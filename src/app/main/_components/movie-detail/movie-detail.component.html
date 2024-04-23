@@ -62,7 +62,16 @@
       </div>
       <div class="detail grow border-s border-silver pl-[20px]">
         <span class="text-lg">Detail</span>
-        <!-- Todo: Show review list -->
+        <div class="flex py-3 border-b border-silver" *ngFor="let rating of ratings">
+          <div class="avatar"></div>
+          <div class="flex flex-col">
+            <div>{{rating.user.username}}</div>
+            <div class="flex">
+              <ng-container *ngTemplateOutlet="starListTemplate; context: {'avg': rating.stars}"></ng-container>
+            </div>
+            <div>{{rating.description}}</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

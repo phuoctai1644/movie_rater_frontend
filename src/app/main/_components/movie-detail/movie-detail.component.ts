@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Movie } from '../../_models';
+import { Movie, Rating } from '../../_models';
 import { MovieService } from '../../_services/movie.service';
 import { ToastService } from 'src/app/core/_services';
 import { DomSanitizer } from '@angular/platform-browser';
+import { RatingService } from '../../_services/rating.service';
 
 @Component({
   selector: 'app-movie-detail',
@@ -11,13 +12,16 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./movie-detail.component.scss']
 })
 export class MovieDetailComponent implements OnInit {
+  movieId!: number;
   movie!: Movie;
+  ratings: Rating[] = [];
 
   constructor(
     private toast: ToastService,
     private route: ActivatedRoute,
+    private sanitizer: DomSanitizer,
     private movieService: MovieService,
-    private sanitizer: DomSanitizer
+    private ratingService: RatingService
   ) { }
 
   get embedUrl() {
@@ -33,14 +37,29 @@ export class MovieDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const movieId = this.route.snapshot.params['id'];
-    this.getMovie(movieId);
+    this.movieId = this.route.snapshot.params['id'];
+
+    if (this.movieId) {
+      this.getMovie();
+      this.getRatings();
+    }
   }
 
-  getMovie(id: number) {
-    this.movieService.get(id).subscribe({
+  getMovie() {
+    this.movieService.get(this.movieId).subscribe({
       next: movie => {
         this.movie = movie
+      },
+      error: error => {
+        this.toast.error(error.message);
+      }
+    })
+  }
+
+  getRatings() {
+    this.ratingService.get(this.movieId).subscribe({
+      next: ratings => {
+        this.ratings = ratings;
       },
       error: error => {
         this.toast.error(error.message);
