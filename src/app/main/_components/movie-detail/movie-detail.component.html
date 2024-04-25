@@ -1,0 +1,115 @@
+<div class="movie-detail-wrapper mt-4" *ngIf="movie">
+  <div class="flex justify-between h-[500px] mt-3">
+    <div class="content flex">
+      <div class="thumbnail" [ngStyle]="{ 'background-image': 'url(' + movie.thumbnail + ')' }"></div>
+      <div class="info flex-column w-[750px] ml-3 p-3">
+        <p class="text-3xl font-semibold">
+          {{movie.title}}
+        </p>
+
+        <div class="rating flex items-center mart-2">
+          <span>{{avgRating}}</span>
+          <div class="flex ml-2">
+            <ng-container *ngTemplateOutlet="starListTemplate; context: {'avg': movie.avg_rating}"></ng-container>
+          </div>
+          <span class="opacity-50 ml-2">({{movie.total_rating}})</span>
+        </div>
+
+        <div class="type inline-block border rounded-full px-3 py-1 mart-4">
+          <span class="font-medium">{{movie.type}}</span>
+        </div>
+
+        <div class="description mart-2">{{movie.description}}</div>
+
+        <button pButton class="mart-2" (click)="openRatingModal($event)">Rating</button>
+        <ng-container *ngTemplateOutlet="ratingModal"></ng-container>
+      </div>
+    </div>
+    <div class="trailer grow flex justify-end">
+      <iframe width="80%" height="100%" [src]="embedUrl" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div class="rating-section mt-[30px]">
+    <p class="text-xl font-semibold"> Viewer Rating </p>
+    <div class="flex gap-[20px] mart-3" dir="ltr">
+      <div class="general pr-[20px]">
+        <span class="text-lg">General</span>
+        <div class="flex mart-2">
+          <div class="flex flex-col">
+            <div class="flex items-center">
+              <span class="text-2xl font-medium">{{avgRating}}</span>
+              <div class="flex ml-2">
+                <ng-container *ngFor="let star of [1,2,3,4,5]">
+                  <i class="pi pi-star-fill star-icon active fs-20" *ngIf="movie.avg_rating >= star"></i>
+                  <i class="pi pi-star star-icon fs-20" *ngIf="movie.avg_rating < star"></i>
+                </ng-container>
+              </div>
+            </div>
+            <span class="opacity-50">({{movie.total_rating}}) ratings</span>
+  
+            <div class="flex flex-col mart-2">
+              <div class="flex items-center" *ngFor="let i of [5,4,3,2,1]">
+                <div class="flex marb-1">
+                  <ng-container *ngTemplateOutlet="starListTemplate; context: {'avg': i}"></ng-container>
+                </div>
+                <div class="ml-2 w-[150px]">
+                  <p-progressBar [value]="50" [style]="{ height: '6px' }" [showValue]="false"></p-progressBar>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="flex flex-col"></div>
+        </div>
+      </div>
+      <div class="detail grow border-s border-silver pl-[20px]">
+        <span class="text-lg">Detail</span>
+        <div class="flex py-3 border-b border-silver" *ngFor="let rating of ratings">
+          <div class="avatar"></div>
+          <div class="flex flex-col">
+            <div>{{rating.user.username}}</div>
+            <div class="flex">
+              <ng-container *ngTemplateOutlet="starListTemplate; context: {'avg': rating.stars}"></ng-container>
+            </div>
+            <div>{{rating.description}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #starListTemplate let-avg="avg">
+  <ng-container *ngFor="let star of [1,2,3,4,5]">
+    <i class="pi pi-star-fill star-icon active" *ngIf="avg >= star"></i>
+    <i class="pi pi-star star-icon" *ngIf="avg < star"></i>
+  </ng-container>
+</ng-template>
+
+<ng-template #ratingModal>
+  <p-dialog header="Rating" [(visible)]="visible" [style]="{width: '30vw'}" [modal]="true">
+    <div class="rating-dialog" [formGroup]="form">
+      <div class="form-group flex justify-center">
+        <ng-container *ngFor="let star of [1,2,3,4,5]">
+          <!-- <i class="pi pi-star-fill star-icon active fs-30" *ngIf="movie.avg_rating >= star"></i> -->
+          <i class="pi star-icon fs-30 cursor-pointer"
+            [ngClass]="hoveredIndex >= star ? 'pi-star-fill active' : 'pi-star'"
+            (mouseenter)="hoveredIndex = star"
+            (mouseleave)="hoveredIndex = form.get('stars')?.value"
+            (click)="onSelectStar(star)"
+          ></i>
+        </ng-container>
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <textarea pInputTextarea formControlName="description" placeholder="Rating description for this movie"></textarea>
+      </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+      <button pButton (click)="onRating()">Save</button>
+    </ng-template>
+  </p-dialog>
+</ng-template>

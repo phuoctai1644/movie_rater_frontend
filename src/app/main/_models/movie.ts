@@ -1,11 +1,3 @@
-export interface User {
-  id: number;
-  email: string;
-  first_name: string;
-  last_name: string;
-  username: string;
-}
-
 export interface Movie {
   id: number;
   title: string;
@@ -15,18 +7,12 @@ export interface Movie {
   avg_rating: number;
   thumbnail: string;
   type: string;
-  trailerUrl?: string;
-}
-
-export interface Rating {
-  id: number;
-  user: User;
-  movie: Movie;
-  stars: number;
+  trailer_url?: string;
 }
 
 export interface RatingPayload {
   stars: number;
+  description: string;
 }
 
 export interface ApiResponse<T> {
