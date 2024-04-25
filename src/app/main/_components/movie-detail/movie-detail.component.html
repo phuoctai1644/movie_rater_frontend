@@ -20,6 +20,9 @@
         </div>
 
         <div class="description mart-2">{{movie.description}}</div>
+
+        <button pButton class="mart-2" (click)="openRatingModal($event)">Rating</button>
+        <ng-container *ngTemplateOutlet="ratingModal"></ng-container>
       </div>
     </div>
     <div class="trailer grow flex justify-end">
@@ -82,4 +85,31 @@
     <i class="pi pi-star-fill star-icon active" *ngIf="avg >= star"></i>
     <i class="pi pi-star star-icon" *ngIf="avg < star"></i>
   </ng-container>
+</ng-template>
+
+<ng-template #ratingModal>
+  <p-dialog header="Rating" [(visible)]="visible" [style]="{width: '30vw'}" [modal]="true">
+    <div class="rating-dialog" [formGroup]="form">
+      <div class="form-group flex justify-center">
+        <ng-container *ngFor="let star of [1,2,3,4,5]">
+          <!-- <i class="pi pi-star-fill star-icon active fs-30" *ngIf="movie.avg_rating >= star"></i> -->
+          <i class="pi star-icon fs-30 cursor-pointer"
+            [ngClass]="hoveredIndex >= star ? 'pi-star-fill active' : 'pi-star'"
+            (mouseenter)="hoveredIndex = star"
+            (mouseleave)="hoveredIndex = form.get('stars')?.value"
+            (click)="onSelectStar(star)"
+          ></i>
+        </ng-container>
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <textarea pInputTextarea formControlName="description" placeholder="Rating description for this movie"></textarea>
+      </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+      <button pButton (click)="onRating()">Save</button>
+    </ng-template>
+  </p-dialog>
 </ng-template>

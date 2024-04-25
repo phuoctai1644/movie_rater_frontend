@@ -12,6 +12,7 @@ export interface Movie {
 
 export interface RatingPayload {
   stars: number;
+  description: string;
 }
 
 export interface ApiResponse<T> {

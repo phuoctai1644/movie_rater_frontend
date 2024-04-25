@@ -2,12 +2,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ToastModule } from 'primeng/toast';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 /** Components */
 import { MainComponent } from './main.component';
@@ -43,7 +45,9 @@ const PIRMENG_MODULES = [
   ButtonModule,
   TooltipModule,
   ProgressBarModule,
-  ToastModule
+  ToastModule,
+  DialogModule,
+  InputTextareaModule
 ]
 
 @NgModule({
@@ -53,6 +57,7 @@ const PIRMENG_MODULES = [
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forChild(routes),
     ...PIRMENG_MODULES,
   ],

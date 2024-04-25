@@ -1,5 +1,9 @@
 @import './color';
 
+.p-button {
+  padding: 0.5rem 1rem;
+}
+
 button ~ button {
   margin-left: 12px;
 }
@@ -7,6 +11,14 @@ button ~ button {
 .form-group {
   & ~ .form-group {
     margin-top: 15px;
+  }
+  label, input, textarea {
+    display: block;
+    width: 100%;
+  }
+  label {
+    font-weight: 500;
+    margin-bottom: 4px;
   }
   input.ng-invalid.ng-touched {
     border-color: var(--x-error);
