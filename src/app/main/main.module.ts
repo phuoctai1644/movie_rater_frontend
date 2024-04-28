@@ -10,6 +10,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 /** Components */
 import { MainComponent } from './main.component';
@@ -19,6 +20,7 @@ import { MovieDetailComponent } from './_components/movie-detail/movie-detail.co
 
 /** Others */
 import { mainGuard } from '../core/_guards/main.guard';
+import { MyProfileComponent } from './_components/my-profile/my-profile.component';
 
 const routes: Routes = [
   {
@@ -28,6 +30,7 @@ const routes: Routes = [
     children: [
       { path: 'movies/:id', component: MovieDetailComponent },
       { path: 'movies', component: MovieListComponent },
+      { path: 'profile', component: MyProfileComponent },
       { path: '', pathMatch: 'full', redirectTo: 'movies' }
     ]
   }
@@ -38,6 +41,7 @@ const COMPONENTS = [
   MovieItemComponent,
   MovieListComponent,
   MovieDetailComponent,
+  MyProfileComponent,
 ]
 
 const PIRMENG_MODULES = [
@@ -47,7 +51,8 @@ const PIRMENG_MODULES = [
   ProgressBarModule,
   ToastModule,
   DialogModule,
-  InputTextareaModule
+  InputTextareaModule,
+  OverlayPanelModule
 ]
 
 @NgModule({
