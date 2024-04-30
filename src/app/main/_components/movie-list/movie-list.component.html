@@ -1,5 +1,5 @@
 <div class="movie-list-wrapper">
-  <div class="top-rating-section mt-[30px]" *ngIf="!keyword">
+  <div class="top-rating-section" *ngIf="!keyword">
     <p class="text-xl font-medium">Top Rating Movie</p>
     <div class="flex gap-[20px] mt-2 mw-full overflow-x-auto">
       <ng-container *ngFor="let movie of topMovies">

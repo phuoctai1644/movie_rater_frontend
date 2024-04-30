@@ -19,11 +19,21 @@
       <button pButton severity="secondary" (click)="onSignOut()">
         <i class="pi pi-sign-out"></i>
       </button>
-      <button pButton class="ml-2">
+      <button pButton class="ml-2" (click)="profileDropdown.toggle($event)">
         <i class="pi pi-user"></i>
       </button>
+      <p-overlayPanel #profileDropdown [styleClass]="'user-dropdown-overlay'">
+        <ul class="user-dropdown-list">
+          <li class="user-dropdown-item" *ngFor="let item of dropdownItems" (click)="onClickUserDropdown(item)">
+            <i [class]="item.icon"></i>
+            <span class="ml-2">{{item.label}}</span>
+          </li>
+        </ul>
+      </p-overlayPanel>
     </div>
   </div>
-  <router-outlet></router-outlet>
+  <div class="mart-6">
+    <router-outlet></router-outlet>
+  </div>
 </div>
 
