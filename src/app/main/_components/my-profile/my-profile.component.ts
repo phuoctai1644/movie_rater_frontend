@@ -57,6 +57,15 @@ export class MyProfileComponent implements OnInit {
     }
 
     const rawValue = this.form.getRawValue();
-    console.log(rawValue);
+    this.authService.updateProfile(this.userInfo.id, rawValue)
+      .subscribe({
+        next: user => {
+          this.userInfo = user;
+          this.toast.success('Updated successfully!');
+        },
+        error: data => {
+          this.toast.error(data.error.message);
+        }
+      })
   }
 }

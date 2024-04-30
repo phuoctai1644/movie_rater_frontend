@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { CookieService } from "ngx-cookie-service";
 import { SigInResponse, SignInPayload } from "../_models";
-import { SignUpPayload, User } from "../_models/sign-up.models";
+import { SignUpPayload, User, UserPayload } from "../_models/sign-up.models";
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +32,10 @@ export class AuthService {
 
   getProfile() {
     return this.http.get<User>(`${this.baseUrl}/api/users/profile`);
+  }
+
+  updateProfile(id: number, payload: UserPayload) {
+    return this.http.put<User>(`${this.baseUrl}/api/users/${id}/`, payload);
   }
 
   isAuthenticated() {
