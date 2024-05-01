@@ -1,8 +1,8 @@
 <div class="movie-detail-wrapper" *ngIf="movie">
   <div class="flex justify-between h-[500px]">
-    <div class="content flex">
+    <div class="content flex w-3/5">
       <div class="thumbnail" [ngStyle]="{ 'background-image': 'url(' + movie.thumbnail + ')' }"></div>
-      <div class="info flex-column w-[750px] ml-3 p-3">
+      <div class="info flex-column w-4/6 ml-3 p-3">
         <p class="text-3xl font-semibold">
           {{movie.title}}
         </p>
@@ -26,7 +26,7 @@
       </div>
     </div>
     <div class="trailer grow flex justify-end">
-      <iframe width="80%" height="100%" [src]="embedUrl" allowfullscreen></iframe>
+      <iframe width="100%" [src]="embedUrl" allowfullscreen></iframe>
     </div>
   </div>
 
@@ -54,8 +54,9 @@
                   <ng-container *ngTemplateOutlet="starListTemplate; context: {'avg': i}"></ng-container>
                 </div>
                 <div class="ml-2 w-[150px]">
-                  <p-progressBar [value]="50" [style]="{ height: '6px' }" [showValue]="false"></p-progressBar>
+                  <p-progressBar [value]="getStarPercent(i)" [style]="{ height: '6px' }" [showValue]="false"></p-progressBar>
                 </div>
+                <span class="ml-2">({{getStarCount(i)}})</span>
               </div>
             </div>
           </div>
