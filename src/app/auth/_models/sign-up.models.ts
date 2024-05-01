@@ -11,3 +11,10 @@ export interface User {
   last_name: string;
   email: string;
 }
+
+export interface UserPayload {
+  username: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+}

@@ -1,2 +1,13 @@
-.main-wrapper {
+.user-dropdown-overlay {
+  .user-dropdown-list {
+    .user-dropdown-item {
+      display: flex;
+      align-items: center;
+      padding: 5px 0;
+      cursor: pointer;
+      &:hover {
+        color: var(--x-primary)
+      }
+    }
+  }
 }
