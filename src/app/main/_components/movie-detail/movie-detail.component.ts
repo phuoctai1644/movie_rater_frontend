@@ -103,11 +103,21 @@ export class MovieDetailComponent implements OnInit {
         next: response => {
           this.toast.success('Rated successfully!');
           this.visible = false;
+          this.getMovie();
           this.getRatings();
         },
         error: error => {
           this.toast.error(error.message);
         }
       })
+  }
+
+  getStarCount(num: number) {
+    return this.ratings.filter(el => el.stars === num).length;
+  }
+
+  getStarPercent(num: number) {
+    const count = this.getStarCount(num);
+    return (count / this.ratings.length) * 100;
   }
 }

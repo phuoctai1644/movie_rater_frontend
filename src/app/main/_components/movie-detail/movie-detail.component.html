@@ -54,8 +54,9 @@
                   <ng-container *ngTemplateOutlet="starListTemplate; context: {'avg': i}"></ng-container>
                 </div>
                 <div class="ml-2 w-[150px]">
-                  <p-progressBar [value]="50" [style]="{ height: '6px' }" [showValue]="false"></p-progressBar>
+                  <p-progressBar [value]="getStarPercent(i)" [style]="{ height: '6px' }" [showValue]="false"></p-progressBar>
                 </div>
+                <span class="ml-2">({{getStarCount(i)}})</span>
               </div>
             </div>
           </div>
