@@ -8,6 +8,11 @@ export const UserDropdowns = [
     type: UserDropdownType.INFO
   },
   {
+    label: 'Thay đổi mật khẩu',
+    icon: PrimeIcons.SYNC,
+    type: UserDropdownType.CHANGE_PASSWORD
+  },
+  {
     label: 'Giao diện',
     icon: PrimeIcons.PALETTE,
     type: UserDropdownType.THEME

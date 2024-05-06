@@ -15,6 +15,7 @@ export class MainComponent {
   @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
   keyword = '';
   dropdownItems = UserDropdowns;
+  changePasswordVisibility = false;
 
   constructor(
     private router: Router,
@@ -38,6 +39,9 @@ export class MainComponent {
     switch(item.type) {
       case UserDropdownType.INFO:
         this.router.navigate(['profile']);
+        break;
+      case UserDropdownType.CHANGE_PASSWORD:
+        this.changePasswordVisibility = true;
         break;
       case UserDropdownType.THEME:
         break;
