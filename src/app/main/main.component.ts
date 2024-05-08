@@ -6,6 +6,8 @@ import { AuthService } from '../auth/_services';
 import { MovieDataService } from './_services/movie-data.service';
 import { UserDropdowns } from './_consts/profile';
 import { User, UserDropdownType } from './_models';
+import { PasswordValidator } from '../core/_validators';
+import { ChangePasswordPayload } from '../auth/_models';
 
 @Component({
   selector: 'app-main',
@@ -31,11 +33,7 @@ export class MainComponent implements OnInit {
 
   ngOnInit(): void {
     this.loggedUser = this.authService.getLoggedUser();
-    this.form = this.formBuilder.group({
-      currentPassword: [, [Validators.required]],
-      newPassword: [, [Validators.required]],
-      confirmPassword: [, [Validators.required]]
-    });
+    this.createForm();
   }
 
   onSignOut() {
@@ -50,6 +48,19 @@ export class MainComponent implements OnInit {
     this.searchInput.nativeElement.blur();
   }
 
+  createForm() {
+    this.form = this.formBuilder.group(
+      {
+        currentPassword: [, [Validators.required]],
+        password: [, [Validators.required]],
+        confirmPassword: [, [Validators.required]]
+      },
+      { 
+        validators: PasswordValidator.matching()
+      }
+    );
+  }
+
   onClickUserDropdown(item: any) {
     switch(item.type) {
       case UserDropdownType.INFO:
@@ -57,6 +68,7 @@ export class MainComponent implements OnInit {
         break;
       case UserDropdownType.CHANGE_PASSWORD:
         this.changePasswordVisibility = true;
+        this.createForm();
         break;
       case UserDropdownType.THEME:
         break;
@@ -72,7 +84,11 @@ export class MainComponent implements OnInit {
     }
 
     const rawValue = this.form.getRawValue();
-    this.authService.changePassword(this.loggedUser.id, rawValue)
+    const payload: ChangePasswordPayload = {
+      currentPassword: rawValue.currentPassword,
+      newPassword: rawValue.password
+    };
+    this.authService.changePassword(this.loggedUser.id, payload)
       .subscribe({
         next: response => {
           this.toast.success('Changed password successfully!');
