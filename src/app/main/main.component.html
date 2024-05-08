@@ -1,4 +1,4 @@
-<div class="main-wrapper">
+<div class="main-wrapper" [formGroup]="form">
   <div class="flex items-center justify-between w-full">
     <div class="flex items-center cursor-pointer" routerLink="/">
       <img src="assets/icons/movie-rating.svg" alt="Movie Rating" class="w-[120px]">
@@ -35,5 +35,40 @@
   <div class="mart-6">
     <router-outlet></router-outlet>
   </div>
-</div>
 
+  <p-dialog header="Change Password" [modal]="true" [(visible)]="changePasswordVisibility" [draggable]="false" [style]="{ width: '25rem' }">
+    <div class="form-group gap-3 mb-3">
+      <label class="font-semibold w-6rem">Current Password</label>
+      <input pInputText type="password" class="flex-auto" autocomplete="off" formControlName="currentPassword" />
+      <span *ngIf="form.hasError('required', ['currentPassword']) && form.get('currentPassword')?.touched">
+        This field is required
+      </span>
+    </div>
+    <div class="form-group gap-3 mb-5">
+      <label class="font-semibold w-6rem">New Password</label>
+      <input pInputText type="password" class="flex-auto" autocomplete="off" formControlName="password" />
+      <span
+        *ngIf="form.hasError('mustMatch') && form.get('confirmPassword')?.dirty && form.get('password')?.touched">
+        Password does not match!
+      </span>
+      <span *ngIf="form.hasError('required', ['password']) && form.get('password')?.touched">
+        This field is required
+      </span>
+    </div>
+    <div class="form-group gap-3 mb-5">
+      <label class="font-semibold w-6rem">Confirm Password</label>
+      <input pInputText type="password" class="flex-auto" autocomplete="off" formControlName="confirmPassword" />
+      <span
+        *ngIf="form.hasError('mustMatch') && form.get('confirmPassword')?.dirty && form.get('password')?.touched">
+        Password does not match!
+      </span>
+      <span *ngIf="form.hasError('required', ['confirmPassword']) && form.get('confirmPassword')?.touched">
+        This field is required
+      </span>
+    </div>
+    <div class="flex justify-end gap-2">
+      <p-button label="Cancel" severity="secondary" (click)="changePasswordVisibility = false" />
+      <p-button label="Save" (click)="onChangePassword()" />
+    </div>
+  </p-dialog>
+</div>

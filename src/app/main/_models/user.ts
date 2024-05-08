@@ -8,6 +8,7 @@ export interface User {
 
 export enum UserDropdownType {
   INFO = 'INFO',
+  CHANGE_PASSWORD = 'CHANGE_PASSWORD',
   THEME = 'THEME',
   SETTING = 'SETTING'
 }
