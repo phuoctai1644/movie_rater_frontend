@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { CookieService } from "ngx-cookie-service";
-import { SigInResponse, SignInPayload } from "../_models";
+import { ChangePasswordPayload, SigInResponse, SignInPayload } from "../_models";
 import { SignUpPayload, User, UserPayload } from "../_models/sign-up.models";
 
 @Injectable({
@@ -38,6 +38,10 @@ export class AuthService {
     return this.http.put<User>(`${this.baseUrl}/api/users/${id}/`, payload);
   }
 
+  changePassword(id: number, payload: ChangePasswordPayload) {
+    return this.http.post<any>(`${this.baseUrl}/api/users/${id}/change_password/`, payload);
+  }
+
   isAuthenticated() {
     return this.getAccessToken() ? true : false;
   }
@@ -48,5 +52,9 @@ export class AuthService {
 
   setAccessToken(token: string) {
     return this.cookieService.set('accessToken', token);
+  }
+
+  getLoggedUser() {
+    return JSON.parse(localStorage.getItem('userProfile') || '');
   }
 }

@@ -20,33 +20,17 @@ export class MyProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.userInfo = this.authService.getLoggedUser();
     this.createForm();
-    this.getUserInfo();
   }
 
   createForm() {
     this.form = this.formBuilder.group({
-      userName: [, [Validators.required]],
-      firstName: [, [Validators.required]],
-      lastName: [, [Validators.required]],
-      email: [, [Validators.required]]
+      userName: [this.userInfo.username, [Validators.required]],
+      firstName: [this.userInfo.first_name, [Validators.required]],
+      lastName: [this.userInfo.last_name, [Validators.required]],
+      email: [this.userInfo.email, [Validators.required]]
     })
-  }
-
-  getUserInfo() {
-    this.authService.getProfile()
-      .subscribe({
-        next: response => {
-          this.userInfo = response;
-          this.form.controls['userName'].setValue(response.username);
-          this.form.controls['firstName'].setValue(response.first_name);
-          this.form.controls['lastName'].setValue(response.last_name);
-          this.form.controls['email'].setValue(response.email);
-        },
-        error: error => {
-          this.toast.error(error.message);
-        }
-      })
   }
 
   onSubmit() {
