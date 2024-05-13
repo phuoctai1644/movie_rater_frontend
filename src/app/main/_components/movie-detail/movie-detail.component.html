@@ -15,8 +15,12 @@
           <span class="opacity-50 ml-2">({{movie.total_rating}})</span>
         </div>
 
-        <div class="type inline-block border rounded-full px-3 py-1 mart-4">
-          <span class="font-medium">{{movie.type}}</span>
+        <div class="flex">
+          <div class="type inline-block border rounded-full px-3 py-1 mart-4 mr-2"
+            *ngFor="let type of movie.type"
+          >
+            <span class="font-medium">{{type}}</span>
+          </div>
         </div>
 
         <div class="description mart-2">{{movie.description}}</div>
@@ -93,7 +97,6 @@
     <div class="rating-dialog" [formGroup]="form">
       <div class="form-group flex justify-center">
         <ng-container *ngFor="let star of [1,2,3,4,5]">
-          <!-- <i class="pi pi-star-fill star-icon active fs-30" *ngIf="movie.avg_rating >= star"></i> -->
           <i class="pi star-icon fs-30 cursor-pointer"
             [ngClass]="hoveredIndex >= star ? 'pi-star-fill active' : 'pi-star'"
             (mouseenter)="hoveredIndex = star"

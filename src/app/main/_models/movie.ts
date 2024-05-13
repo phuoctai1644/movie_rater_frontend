@@ -6,8 +6,8 @@ export interface Movie {
   total_rating: number;
   avg_rating: number;
   thumbnail: string;
-  type: string;
-  trailer_url: string;
+  type: string[];
+  trailer_url?: string;
 }
 
 export interface RatingPayload {
