@@ -65,14 +65,27 @@ export class MyProfileComponent implements OnInit {
       const payload = { avatar: file };
       this.userService.changeAvatar(payload, this.userInfo.id)
         .subscribe({
-          next: user => {
-            this.authService.updateLoggedUser(user);
+          next: () => {
             this.toast.success('Avatar updated successfully!');
+            this.getProfile();
           },
           error: data => {
             this.toast.error(data.error.message);
           }
         })
     }
+  }
+
+  getProfile() {
+    this.userService.getProfile().subscribe({
+      next: user => {
+        localStorage.setItem('userProfile', JSON.stringify(user));
+        this.userInfo = user;
+      },
+      error: error => {
+        this.toast.error(error.message);
+        this.authService.signOut();
+      }
+    })
   }
 }

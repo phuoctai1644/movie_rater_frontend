@@ -26,6 +26,6 @@ export class UserService {
   changeAvatar(payload: { avatar: File }, id: number) {
     const formData = new FormData();
     formData.append('avatar', payload.avatar);
-    return this.http.put<User>(`${environment}/users/${id}/change_avatar/`, formData);
+    return this.http.put(`${environment.apiUrl}/users/${id}/change_avatar/`, formData);
   }
 }

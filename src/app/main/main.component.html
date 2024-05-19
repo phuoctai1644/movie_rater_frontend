@@ -11,7 +11,8 @@
         pInputText #searchInput
         placeholder="Search a movie"
         class="search-input m-auto w-[500px]"
-        [(ngModel)]="keyword" 
+        [(ngModel)]="keyword"
+        [ngModelOptions]="{standalone: true}"
         (keyup)="onSearch($event)"/>
     </div>
 
