@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@an
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastService } from '../core/_services';
-import { AuthService } from '../auth/_services';
+import { AuthService, UserService } from '../auth/_services';
 import { MovieDataService } from './_services/movie-data.service';
 import { UserDropdowns } from './_consts/profile';
 import { User, UserDropdownType } from './_models';
@@ -27,6 +27,7 @@ export class MainComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private authService: AuthService,
+    private userService: UserService,
     private movieDataService: MovieDataService,
     private toast: ToastService,
   ) { }
@@ -88,7 +89,7 @@ export class MainComponent implements OnInit {
       currentPassword: rawValue.currentPassword,
       newPassword: rawValue.password
     };
-    this.authService.changePassword(this.loggedUser.id, payload)
+    this.userService.changePassword(this.loggedUser.id, payload)
       .subscribe({
         next: response => {
           this.toast.success('Changed password successfully!');

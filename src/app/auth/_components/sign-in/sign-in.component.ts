@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../_services/auth.service';
 import { ToastService } from 'src/app/core/_services';
 import { Router } from '@angular/router';
+import { UserService } from '../../_services';
 
 @Component({
   selector: 'app-sign-in',
@@ -14,6 +15,7 @@ export class SignInComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
+    private userService: UserService,
     private toastService: ToastService,
     private router: Router
   ) { }
@@ -26,7 +28,7 @@ export class SignInComponent implements OnInit {
   }
 
   getProfile() {
-    this.authService.getProfile().subscribe({
+    this.userService.getProfile().subscribe({
       next: user => {
         localStorage.setItem('userProfile', JSON.stringify(user));
       },

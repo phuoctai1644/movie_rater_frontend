@@ -25,7 +25,8 @@
     "useDefineForClassFields": false,
     "paths": {
       "tslib": [ "./node_modules/tslib/tslib.d.ts" ]
-    }
+    },
+    "strictPropertyInitialization": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
