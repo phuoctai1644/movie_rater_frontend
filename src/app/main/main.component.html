@@ -16,15 +16,21 @@
         (keyup)="onSearch($event)"/>
     </div>
 
-    <div>
+    <div class="flex items-center">
       <button pButton severity="secondary" (click)="onSignOut()">
         <i class="pi pi-sign-out"></i>
       </button>
-      <button pButton class="ml-2" (click)="profileDropdown.toggle($event)">
-        <i class="pi pi-user"></i>
-      </button>
+      <div class="avatar-toggle ml-3" (click)="profileDropdown.toggle($event)">
+        <img [src]="loggedUser.avatar" [alt]="loggedUser.username">
+      </div>
       <p-overlayPanel #profileDropdown [styleClass]="'user-dropdown-overlay'">
-        <ul class="user-dropdown-list">
+        <div class="header-block">
+          <div class="avatar">
+            <img [src]="loggedUser.avatar" [alt]="loggedUser.username">
+          </div>
+          <span class="mt-2">{{loggedUser.first_name + loggedUser.last_name || loggedUser.username}}</span>
+        </div>
+        <ul class="user-dropdown-list mt-3">
           <li class="user-dropdown-item" *ngFor="let item of dropdownItems" (click)="onClickUserDropdown(item)">
             <i [class]="item.icon"></i>
             <span class="ml-2">{{item.label}}</span>
