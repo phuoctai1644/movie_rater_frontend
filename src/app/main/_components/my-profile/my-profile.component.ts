@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/auth/_services';
+import { AuthService, UserService } from 'src/app/auth/_services';
 import { ToastService } from 'src/app/core/_services';
 import { User } from '../../_models';
 import { AuthState, selectLoggedUser } from 'src/app/core/_stores/auth';
@@ -12,6 +12,8 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./my-profile.component.scss']
 })
 export class MyProfileComponent implements OnInit {
+  @ViewChild('fileInput', {static: true}) fileInput: ElementRef<HTMLInputElement>;
+
   form!: FormGroup;
   userInfo!: User;
 
@@ -19,20 +21,22 @@ export class MyProfileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private toast: ToastService,
     private authService: AuthService,
-    private store: Store<AuthState>
+    private store: Store<AuthState>,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
+    this.userInfo = this.authService.getLoggedUser();
     this.createForm();
-    this.getUserInfo();
   }
 
   createForm() {
     this.form = this.formBuilder.group({
-      userName: [, [Validators.required]],
-      firstName: [, [Validators.required]],
-      lastName: [, [Validators.required]],
-      email: [, [Validators.required]]
+      userName: [this.userInfo.username, [Validators.required]],
+      firstName: [this.userInfo.first_name, [Validators.required]],
+      lastName: [this.userInfo.last_name, [Validators.required]],
+      email: [this.userInfo.email, [Validators.required]],
+      avatar: [this.userInfo.avatar ?? null]
     })
   }
 
@@ -56,7 +60,8 @@ export class MyProfileComponent implements OnInit {
     }
 
     const rawValue = this.form.getRawValue();
-    this.authService.updateProfile(this.userInfo.id, rawValue)
+    delete rawValue.avatar;
+    this.userService.updateProfile(this.userInfo.id, rawValue)
       .subscribe({
         next: user => {
           this.userInfo = user;
@@ -66,5 +71,36 @@ export class MyProfileComponent implements OnInit {
           this.toast.error(data.error.message);
         }
       })
+  }
+
+  onFileChanged() {
+    let file = this.fileInput.nativeElement.files?.[0];
+
+    if (file) {
+      const payload = { avatar: file };
+      this.userService.changeAvatar(payload, this.userInfo.id)
+        .subscribe({
+          next: () => {
+            this.toast.success('Avatar updated successfully!');
+            this.getProfile();
+          },
+          error: data => {
+            this.toast.error(data.error.message);
+          }
+        })
+    }
+  }
+
+  getProfile() {
+    this.userService.getProfile().subscribe({
+      next: user => {
+        localStorage.setItem('userProfile', JSON.stringify(user));
+        this.userInfo = user;
+      },
+      error: error => {
+        this.toast.error(error.message);
+        this.authService.signOut();
+      }
+    })
   }
 }

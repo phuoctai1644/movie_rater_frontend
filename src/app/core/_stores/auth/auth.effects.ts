@@ -1,6 +1,6 @@
 import { inject } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { AuthService } from "src/app/auth/_services";
+import { AuthService, UserService } from "src/app/auth/_services";
 import { GetProfileActions, SignInActions } from "./auth.actions";
 import { catchError, exhaustMap, map, of, tap } from "rxjs";
 import { Router } from "@angular/router";
@@ -25,12 +25,17 @@ const signIn = createEffect(
 );
 
 const signInSuccess = createEffect(
-  (action$ = inject(Actions), authService = inject(AuthService), router = inject(Router)) => {
+  ( action$ = inject(Actions),
+    userService = inject(UserService),
+    authService = inject(AuthService),
+    router = inject(Router),
+  ) => {
     return action$.pipe(
       ofType(SignInActions.signInSuccess),
       exhaustMap(props => {
-        return authService.getProfile().pipe(
+        return userService.getProfile().pipe(
           map(user => {
+            authService.updateLoggedUser(user);
             router.navigate(['']);
             return GetProfileActions.getSuccess({ user });
           }),

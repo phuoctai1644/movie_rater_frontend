@@ -8,15 +8,19 @@
         </p>
 
         <div class="rating flex items-center mart-2">
-          <span>{{avgRating}}</span>
+          <span>{{movie.avg_rating | avgRating}}</span>
           <div class="flex ml-2">
             <ng-container *ngTemplateOutlet="starListTemplate; context: {'avg': movie.avg_rating}"></ng-container>
           </div>
           <span class="opacity-50 ml-2">({{movie.total_rating}})</span>
         </div>
 
-        <div class="type inline-block border rounded-full px-3 py-1 mart-4">
-          <span class="font-medium">{{movie.type}}</span>
+        <div class="flex">
+          <div class="type inline-block border rounded-full px-3 py-1 mart-4 mr-2"
+            *ngFor="let type of movie.type"
+          >
+            <span class="font-medium">{{type}}</span>
+          </div>
         </div>
 
         <div class="description mart-2">{{movie.description}}</div>
@@ -26,7 +30,7 @@
       </div>
     </div>
     <div class="trailer grow flex justify-end">
-      <iframe width="100%" [src]="embedUrl" allowfullscreen></iframe>
+      <iframe width="100%" [src]="movie.trailer_url | embedUrl" allowfullscreen></iframe>
     </div>
   </div>
 
@@ -38,7 +42,7 @@
         <div class="flex mart-2">
           <div class="flex flex-col">
             <div class="flex items-center">
-              <span class="text-2xl font-medium">{{avgRating}}</span>
+              <span class="text-2xl font-medium">{{movie.avg_rating | avgRating}}</span>
               <div class="flex ml-2">
                 <ng-container *ngFor="let star of [1,2,3,4,5]">
                   <i class="pi pi-star-fill star-icon active fs-20" *ngIf="movie.avg_rating >= star"></i>
@@ -93,7 +97,6 @@
     <div class="rating-dialog" [formGroup]="form">
       <div class="form-group flex justify-center">
         <ng-container *ngFor="let star of [1,2,3,4,5]">
-          <!-- <i class="pi pi-star-fill star-icon active fs-30" *ngIf="movie.avg_rating >= star"></i> -->
           <i class="pi star-icon fs-30 cursor-pointer"
             [ngClass]="hoveredIndex >= star ? 'pi-star-fill active' : 'pi-star'"
             (mouseenter)="hoveredIndex = star"

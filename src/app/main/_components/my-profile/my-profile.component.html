@@ -26,8 +26,20 @@
       </div>
     </div>
 
-    <div>
-      <p class="text-lg font-semibold">Avatar</p>
+    <div class="flex flex-col items-center">
+      <input style="display: none"
+        type="file" accept="image/x-png,image/jpeg"
+        [multiple]="false"
+        (change)="onFileChanged()"
+        #fileInput>
+      <p class="text-lg font-semibold self-start">Avatar</p>
+      <div class="avatar">
+        <img class="w-full h-full" [src]="userInfo.avatar" alt="">
+        <div class="avatar-hover" (click)="fileInput.click()">
+          <i class="pi pi-camera" style="font-size: 1.5rem"></i>
+          <span class="mart-1">Upload Avatar</span>
+        </div>
+      </div>
     </div>
   </div>
 

@@ -1,0 +1,26 @@
+.my-profile-wrapper {
+  .avatar {
+    width: 200px;
+    height: 200px;
+    margin-top: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+
+    &:hover .avatar-hover {
+      display: flex;
+    }
+
+    .avatar-hover {
+      position: absolute;
+      background-color: #00000080;
+      inset: 0;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      cursor: pointer;
+    }
+  }
+}

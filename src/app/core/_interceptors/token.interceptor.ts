@@ -20,7 +20,6 @@ export class TokenInterceptor implements HttpInterceptor {
     }
 
     const headers = {
-      'Content-Type': 'application/json',
       'Authorization': `Token ${token}`,
     }
 

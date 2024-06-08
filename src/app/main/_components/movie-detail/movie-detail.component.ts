@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Movie, Rating, RatingPayload } from '../../_models';
 import { MovieService } from '../../_services/movie.service';
 import { ToastService } from 'src/app/core/_services';
-import { DomSanitizer } from '@angular/platform-browser';
 import { RatingService } from '../../_services/rating.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -24,23 +23,10 @@ export class MovieDetailComponent implements OnInit {
   constructor(
     private toast: ToastService,
     private route: ActivatedRoute,
-    private sanitizer: DomSanitizer,
     private movieService: MovieService,
     private ratingService: RatingService,
     private formBuilder: FormBuilder
   ) { }
-
-  get embedUrl() {
-    const trailer_obj = new URL(this.movie.trailer_url as string);
-    const params = trailer_obj.searchParams;
-    const videoId = params.get('v');
-    const hostName = trailer_obj.host;
-    return this.sanitizer.bypassSecurityTrustResourceUrl(`https://${hostName}/embed/${videoId}`);
-  }
-
-  get avgRating() {
-    return Number(this.movie.avg_rating).toFixed(1);
-  }
 
   ngOnInit(): void {
     this.movieId = this.route.snapshot.params['id'];

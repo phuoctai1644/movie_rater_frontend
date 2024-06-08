@@ -24,6 +24,10 @@ import { MovieItemComponent } from './_components/movie-item/movie-item.componen
 import { MovieListComponent } from './_components/movie-list/movie-list.component';
 import { MovieDetailComponent } from './_components/movie-detail/movie-detail.component';
 
+/** Pipes */
+import { EmbedUrlPipe } from './_pipes/embed-url.pipe';
+import { AvgRatingPipe } from './_pipes/avg-rating.pipe';
+
 /** Others */
 import { mainGuard } from '../core/_guards/main.guard';
 import { MyProfileComponent } from './_components/my-profile/my-profile.component';
@@ -50,6 +54,11 @@ const COMPONENTS = [
   MyProfileComponent,
 ]
 
+const PIPES = [
+  EmbedUrlPipe,
+  AvgRatingPipe,
+]
+
 const PIRMENG_MODULES = [
   InputTextModule,
   ButtonModule,
@@ -64,6 +73,7 @@ const PIRMENG_MODULES = [
 @NgModule({
   declarations: [
     ...COMPONENTS,
+    ...PIPES,
   ],
   imports: [
     CommonModule,
