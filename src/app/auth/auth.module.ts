@@ -7,6 +7,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SignUpComponent } from './_components/sign-up/sign-up.component';
+import { StoreModule } from '@ngrx/store';
+import { authFeatureKey, authReducer } from '../core/_stores/auth';
 
 const routes: Routes = [
   {
@@ -35,6 +37,7 @@ const PRIMENG_MODULES = [
     CommonModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
+    StoreModule.forFeature(authFeatureKey, authReducer),
     ...PRIMENG_MODULES
   ],
   exports: [

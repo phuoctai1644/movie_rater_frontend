@@ -12,6 +12,12 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 
+/** NgRx Store + Effect */
+import { StoreModule } from '@ngrx/store';
+import { authFeatureKey, authReducer } from '../core/_stores/auth';
+import { EffectsModule } from '@ngrx/effects';
+import * as authEffects from '../core/_stores/auth/auth.effects';
+
 /** Components */
 import { MainComponent } from './main.component';
 import { MovieItemComponent } from './_components/movie-item/movie-item.component';
@@ -25,12 +31,13 @@ import { AvgRatingPipe } from './_pipes/avg-rating.pipe';
 /** Others */
 import { mainGuard } from '../core/_guards/main.guard';
 import { MyProfileComponent } from './_components/my-profile/my-profile.component';
+import { authGuard } from '../core/_guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: MainComponent,
-    canActivate: [mainGuard],
+    canActivate: [authGuard, mainGuard],
     children: [
       { path: 'movies/:id', component: MovieDetailComponent },
       { path: 'movies', component: MovieListComponent },
@@ -74,6 +81,8 @@ const PIRMENG_MODULES = [
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
+    StoreModule.forFeature(authFeatureKey, authReducer),
+    EffectsModule.forFeature(authEffects),
     ...PIRMENG_MODULES,
   ],
   exports: [

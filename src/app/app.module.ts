@@ -10,6 +10,8 @@ import { CoreModule } from './core/core.module';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { CookieService } from 'ngx-cookie-service';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 export let AppInjector: Injector;
 
@@ -37,6 +39,8 @@ const PRIMENG_MODULES = [
     BrowserAnimationsModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot({}),
     CoreModule,
     MainModule,
     AuthModule,
