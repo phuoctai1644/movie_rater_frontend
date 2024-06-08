@@ -6,7 +6,6 @@ export const SignInActions = createActionGroup({
   source: 'Auth',
   events: {
     'Sign In': props<{payload: SignInPayload}>(),
-    'Sign In Success': props<any>(),
     'Sign In Failed': props<{error: any}>()
   }
 });
@@ -14,6 +13,7 @@ export const SignInActions = createActionGroup({
 export const GetProfileActions = createActionGroup({
   source: 'Auth',
   events: {
+    'Get': props<any>(),
     'Get Success': props<{user: User}>(),
     'Get Failed': props<{error: any}>()
   }

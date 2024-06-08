@@ -31,12 +31,13 @@ import { AvgRatingPipe } from './_pipes/avg-rating.pipe';
 /** Others */
 import { mainGuard } from '../core/_guards/main.guard';
 import { MyProfileComponent } from './_components/my-profile/my-profile.component';
+import { authGuard } from '../core/_guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: MainComponent,
-    canActivate: [mainGuard],
+    canActivate: [authGuard, mainGuard],
     children: [
       { path: 'movies/:id', component: MovieDetailComponent },
       { path: 'movies', component: MovieListComponent },

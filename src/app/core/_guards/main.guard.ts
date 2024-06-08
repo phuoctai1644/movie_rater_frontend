@@ -1,14 +1,19 @@
-import { CanActivateFn, Router } from '@angular/router';
-import { AppInjector } from 'src/app/app.module';
-import { AuthService } from 'src/app/auth/_services';
+import { inject } from '@angular/core';
+import { CanActivateFn } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { UserService } from 'src/app/auth/_services';
+import { AuthState, GetProfileActions } from '../_stores/auth';
+import { catchError, map, of } from 'rxjs';
 
 export const mainGuard: CanActivateFn = (route, state) => {
-  const authService = AppInjector.get(AuthService);
-  const router = AppInjector.get(Router);
-  if (authService.isAuthenticated()) {
-    return true;
-  }
+  const userService = inject(UserService);
+  const store = inject(Store<AuthState>);
 
-  router.navigate(['/auth/sign-in']);
-  return false;
+  return userService.getProfile().pipe(
+    map(user => {
+      store.dispatch(GetProfileActions.getSuccess({ user }));
+      return true;
+    }),
+    catchError(error => of(false))
+  )
 };

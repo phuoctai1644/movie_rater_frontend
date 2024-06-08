@@ -14,7 +14,7 @@ const signIn = createEffect(
         authService.signIn(props.payload).pipe(
           map(response => {
             authService.setAccessToken(response.token);
-            return SignInActions.signInSuccess()
+            return GetProfileActions.get()
           }),
           catchError(error => of(SignInActions.signInFailed(error)))
         )
@@ -24,18 +24,13 @@ const signIn = createEffect(
   { functional: true }
 );
 
-const signInSuccess = createEffect(
-  ( action$ = inject(Actions),
-    userService = inject(UserService),
-    authService = inject(AuthService),
-    router = inject(Router),
-  ) => {
+const getProfile = createEffect(
+  (action$ = inject(Actions), userService = inject(UserService), router = inject(Router)) => {
     return action$.pipe(
-      ofType(SignInActions.signInSuccess),
+      ofType(GetProfileActions.get),
       exhaustMap(props => {
         return userService.getProfile().pipe(
           map(user => {
-            authService.updateLoggedUser(user);
             router.navigate(['']);
             return GetProfileActions.getSuccess({ user });
           }),
@@ -74,6 +69,6 @@ const getProfileFailed = createEffect(
 export {
   signIn,
   signInFailed,
-  signInSuccess,
+  getProfile,
   getProfileFailed,
 }

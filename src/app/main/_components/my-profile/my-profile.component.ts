@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService, UserService } from 'src/app/auth/_services';
 import { ToastService } from 'src/app/core/_services';
 import { User } from '../../_models';
-import { AuthState, selectLoggedUser } from 'src/app/core/_stores/auth';
+import { AuthState, GetProfileActions, selectLoggedUser } from 'src/app/core/_stores/auth';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -26,8 +26,7 @@ export class MyProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.userInfo = this.authService.getLoggedUser();
-    this.createForm();
+    this.getUserInfo();
   }
 
   createForm() {
@@ -44,10 +43,7 @@ export class MyProfileComponent implements OnInit {
     this.store.select(selectLoggedUser).subscribe(response => {
       if (response) {
         this.userInfo = response;
-        this.form.controls['userName'].setValue(response.username);
-        this.form.controls['firstName'].setValue(response.first_name);
-        this.form.controls['lastName'].setValue(response.last_name);
-        this.form.controls['email'].setValue(response.email);
+        this.createForm();
       }
     })
   }
@@ -82,25 +78,12 @@ export class MyProfileComponent implements OnInit {
         .subscribe({
           next: () => {
             this.toast.success('Avatar updated successfully!');
-            this.getProfile();
+            this.store.dispatch(GetProfileActions.get());
           },
           error: data => {
             this.toast.error(data.error.message);
           }
         })
     }
-  }
-
-  getProfile() {
-    this.userService.getProfile().subscribe({
-      next: user => {
-        localStorage.setItem('userProfile', JSON.stringify(user));
-        this.userInfo = user;
-      },
-      error: error => {
-        this.toast.error(error.message);
-        this.authService.signOut();
-      }
-    })
   }
 }
