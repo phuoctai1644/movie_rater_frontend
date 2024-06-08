@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../_services/auth.service';
-import { ToastService } from 'src/app/core/_services';
-import { CookieService } from 'ngx-cookie-service';
-import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AuthState, SignInActions } from 'src/app/core/_stores/auth';
 
 @Component({
   selector: 'app-sign-in',
@@ -14,10 +12,7 @@ export class SignInComponent implements OnInit {
   form!: FormGroup;
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService,
-    private toastService: ToastService,
-    private cookieService: CookieService,
-    private router: Router
+    private store: Store<AuthState>,
   ) { }
 
   ngOnInit(): void {
@@ -35,14 +30,6 @@ export class SignInComponent implements OnInit {
     }
 
     const rawValue = this.form.getRawValue();
-    this.authService.signIn(rawValue).subscribe({
-      next: response => {
-        this.authService.setAccessToken(response.token);
-        this.router.navigate(['']);
-      }, 
-      error: error => {
-        this.toastService.error(error.message);
-      }
-    })
+    this.store.dispatch(SignInActions.signIn({ payload: rawValue }));
   }
 }

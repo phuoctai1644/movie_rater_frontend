@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/auth/_services';
 import { ToastService } from 'src/app/core/_services';
 import { User } from '../../_models';
+import { AuthState, selectLoggedUser } from 'src/app/core/_stores/auth';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-my-profile',
@@ -16,7 +18,8 @@ export class MyProfileComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private toast: ToastService,
-    private authService: AuthService
+    private authService: AuthService,
+    private store: Store<AuthState>
   ) { }
 
   ngOnInit(): void {
@@ -34,19 +37,15 @@ export class MyProfileComponent implements OnInit {
   }
 
   getUserInfo() {
-    this.authService.getProfile()
-      .subscribe({
-        next: response => {
-          this.userInfo = response;
-          this.form.controls['userName'].setValue(response.username);
-          this.form.controls['firstName'].setValue(response.first_name);
-          this.form.controls['lastName'].setValue(response.last_name);
-          this.form.controls['email'].setValue(response.email);
-        },
-        error: error => {
-          this.toast.error(error.message);
-        }
-      })
+    this.store.select(selectLoggedUser).subscribe(response => {
+      if (response) {
+        this.userInfo = response;
+        this.form.controls['userName'].setValue(response.username);
+        this.form.controls['firstName'].setValue(response.first_name);
+        this.form.controls['lastName'].setValue(response.last_name);
+        this.form.controls['email'].setValue(response.email);
+      }
+    })
   }
 
   onSubmit() {
